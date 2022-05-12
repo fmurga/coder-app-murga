@@ -23,7 +23,7 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="sticky w-full z-10 top-0 flex flex-wrap items-center justify-between px-2 py-0 bg-black flex-grow-1">
+    <nav className="sticky w-full z-10 top-0 flex flex-wrap items-center justify-between px-2 py-0 bg-black">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <a href="/">
