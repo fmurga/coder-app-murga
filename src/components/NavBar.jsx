@@ -3,10 +3,11 @@ import icon from "../assets/images/trending-icon.png";
 import { Menu } from "@mui/icons-material";
 import LoginWidget from "./LoginWidget";
 import CartWidget from "./CartWidget";
+import NavItem from "./Navigation/NavItem";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
-  
+
   const links = [
     {
       link: "/",
@@ -50,13 +51,7 @@ const NavBar = () => {
           <ul className="flex flex-col items-center lg:flex-row list-none lg:ml-0 text-white">
             {links &&
               links.map((link, idx) => (
-                <li key={idx} className="font-bold hover:text-white my-3">
-                  <a
-                    href={link.link}
-                    className="lg:px-6 lg:py-8 hover:bg-indigo-400">
-                    {link.nombre}
-                  </a>
-                </li>
+                <NavItem key={idx} link={link.link} nombre={link.nombre} />
               ))}
             {openNav && (
               <li className="my-3 lg:hidden xl:hidden flex flex-row items-center justify-between gap-1">
@@ -66,12 +61,10 @@ const NavBar = () => {
             )}
           </ul>
         </div>
-        {!openNav && (
-          <div className="right hidden lg:flex lg:flex-row items-center justify-between gap-1">
-            <CartWidget />
-            <LoginWidget />
-          </div>
-        )}
+        <div className="right hidden lg:flex lg:flex-row items-center justify-between gap-1">
+          <CartWidget />
+          <LoginWidget />
+        </div>
       </div>
     </nav>
   );
