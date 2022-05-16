@@ -17,7 +17,8 @@ const Item = ({item}) => {
       <img src={item.pictureUrl} alt={item.title} width={150} />
       <p className="text-center text-violet-700 font-bold">${item.price}</p>
       <p className="text-center">{item.description}</p>
-      <ItemCount initial={1} stock={item.stock} onAdd={onAdd} />
+      <span className="text-xs text-gray-600">Stock: {item.stock}</span>
+      <a href="_" className="w-7/12 p-2 text-center bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg">Ver Producto</a>
     </div>
   );
 };

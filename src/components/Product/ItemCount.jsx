@@ -39,7 +39,6 @@ const ItemCount = ({ stock, initial, onAdd }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <span className="text-xs text-gray-600">Stock: {stock}</span> 
       <div className="flex flex-row gap-2 justify-between my-3">
         <ButtonContainer onClick={decrement} disable={disableDec}>
           <RemoveIcon />
