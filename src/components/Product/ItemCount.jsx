@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { ButtonContainer } from "../buttons/ButtonContainer";
+import { Shop, ShoppingCart } from "@mui/icons-material";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
   const [count, setCount] = useState(initial);
@@ -27,30 +29,32 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       setDisableDec(false);
       setDisableAdd(true);
     }
+    if (count > 1) {
+      setDisableDec(false);
+    }
+    if (count < stock){
+      setDisableAdd(false);
+    }
   }, [disableAdd, disableDec, count, stock]);
 
   return (
     <div className="flex flex-col items-center">
+      <span className="text-xs text-gray-600">Stock: {stock}</span> 
       <div className="flex flex-row gap-2 justify-between my-3">
-        <button
-          className="px-3 py-1 w-max text-white flex justify-center items-center  bg-purple-600 rounded-full"
-          disabled={disableDec}
-          onClick={() => decrement()}>
+        <ButtonContainer onClick={decrement} disable={disableDec}>
           <RemoveIcon />
-        </button>
+        </ButtonContainer>
         <label className="text-center w-44 bg-slate-200 rounded-lg">
-          {count}
+          {count} 
         </label>
-        <button
-          className="px-3 py-1 w-max  text-white flex justify-center items-center bg-purple-600 rounded-full"
-          disabled={disableAdd}
-          onClick={() => add()}>
+        <ButtonContainer onClick={add} disable={disableAdd}>
           <AddIcon />
-        </button>
+        </ButtonContainer>
       </div>
-      <button className="w-7/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg"
-      onClick={() => onAdd(count)}>
-        Agregar al Carrito
+      <button
+        className="w-7/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg"
+        onClick={() => onAdd(count)}>
+          <ShoppingCart /> Agregar
       </button>
     </div>
   );

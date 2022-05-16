@@ -1,21 +1,50 @@
-import React from "react";
-import CardContainer from "./Product/CardContainer";
+import React, { useEffect, useState } from "react";
+import { products } from "../data/products";
+import Loading from "./extra/Loading";
 import ItemCount from "./Product/ItemCount";
+import ItemList from "./Product/ItemList";
 
 const ItemListContainer = ({ greeting }) => {
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const onAdd = (count) => {
     alert("Se Agregaron: " + count + " productos");
   };
+
+  const fetchItems = () => {
+    setLoading(true);
+    setError("");
+    const listado = new Promise((res, rej) => {
+      setTimeout(() => {
+        res(products);
+        // rej("Error inesperado");
+      }, 10000);
+    });
+    listado
+      .then((res) => {
+        setItems(res);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
   return (
     <div className="container mt-10 flex flex-col items-center content-center justify-center mx-auto">
       <p className="font-bold text-2xl">{greeting}</p>
       <ItemCount initial={1} stock={5} onAdd={onAdd} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 my-10 ">
-        <CardContainer />
-        <CardContainer />
-        <CardContainer />
-        <CardContainer />
-      </div>
+      {loading ? <Loading /> : " "}
+      {error && "No se pudieron cargar los productos"}
+      {items && <ItemList items={items} />}
     </div>
   );
 };
