@@ -20,7 +20,7 @@ const ItemListContainer = ({ greeting }) => {
       setTimeout(() => {
         res(products);
         // rej("Error inesperado");
-      }, 10000);
+      }, 3000);
     });
     listado
       .then((res) => {
@@ -39,13 +39,15 @@ const ItemListContainer = ({ greeting }) => {
   }, []);
 
   return (
-    <div className="container mt-10 flex flex-col items-center content-center justify-center mx-auto">
-      <p className="font-bold text-2xl">{greeting}</p>
-      <ItemCount initial={1} stock={5} onAdd={onAdd} />
-      {loading ? <Loading /> : " "}
-      {error && "No se pudieron cargar los productos"}
-      {items && <ItemList items={items} />}
-    </div>
+    <section className="mt-10 max-h-screen">
+      <div className="container flex flex-col items-center content-center justify-center mx-auto">
+        <p className="font-bold text-2xl">{greeting}</p>
+        <ItemCount initial={1} stock={5} onAdd={onAdd} />
+        {loading ? <Loading /> : " "}
+        {error && "No se pudieron cargar los productos"}
+        {items ? <ItemList items={items}/> : <></>}
+      </div>
+    </section>
   );
 };
 
