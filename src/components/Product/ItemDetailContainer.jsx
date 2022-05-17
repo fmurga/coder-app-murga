@@ -35,7 +35,7 @@ const ItemDetailContainer = () => {
 
 
   return (
-    <section className="mt-10 mb-10">
+    <section className="mt-10 mb-10 py-10">
       <div className="container flex justify-center mx-auto">
         {loading ? <Loading /> : <></>}
         {error && <>{error}</>}

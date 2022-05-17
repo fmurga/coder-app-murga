@@ -1,5 +1,6 @@
 import React from "react";
 import ItemCount from "./ItemCount";
+import ItemSizePicker from "./ItemSizePicker";
 
 const ItemDetail = ({ item }) => {
   const onAdd = (count) => {
@@ -24,7 +25,8 @@ const ItemDetail = ({ item }) => {
             <p className="text-lg font-semibold">${item.price}</p>
           </div>
           <p className="text-xl ">{item.description}</p>
-          <div className="p-10">
+          <ItemSizePicker sizes={item.sizes} colors={item.colors}/>
+          <div className="mt-10">
             <ItemCount
               initial={item.initial}
               stock={item.stock}
