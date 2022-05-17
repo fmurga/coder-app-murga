@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { products } from "../data/products";
-import Loading from "./extra/Loading";
-import ItemCount from "./Product/ItemCount";
-import ItemList from "./Product/ItemList";
+import { products } from "../../data/products";
+import Loading from "../extra/Loading";
+import ItemCount from "./ItemCount";
+import ItemList from "./ItemList";
 
 const ItemListContainer = ({ greeting }) => {
   const [items, setItems] = useState([]);
@@ -39,7 +39,7 @@ const ItemListContainer = ({ greeting }) => {
   }, []);
 
   return (
-    <section className="mt-10 max-h-screen">
+    <section className="mt-10">
       <div className="container flex flex-col items-center content-center justify-center mx-auto">
         <p className="font-bold text-2xl">{greeting}</p>
         <ItemCount initial={1} stock={5} onAdd={onAdd} />

@@ -4,7 +4,7 @@ export const products = [
         title: "Saco Negro",
         price: 2000,
         stock: 5,
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
         initial: 1,
         pictureUrl: "https://i.pinimg.com/236x/47/d7/5e/47d75e955f4e4434d85be86f5f6fb290.jpg",
     },

@@ -3,7 +3,7 @@ import React from "react";
 const Loading = () => {
 
   return (
-    <div className="flex h-screen justify-center items-center">
+    <div className="flex justify-center items-center mt-20 mb-10">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style={{margin: "auto", background: "none", display: "block", shapeRendering: "auto"}}

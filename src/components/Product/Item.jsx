@@ -1,12 +1,6 @@
 import React from "react";
-import ItemCount from "./ItemCount";
 
 const Item = ({item}) => {
-
-  const onAdd = (count) => {
-    alert("Se Agregaron: " + count + " productos");
-  };
-
   
   return (
     <div className="flex flex-col justify-center items-center w-80 p-5 m-2 border-2 rounded-lg gap-2 shadow-md hover:shadow-xl">
@@ -16,7 +10,6 @@ const Item = ({item}) => {
       <hr className="text-gray-500"/>
       <img src={item.pictureUrl} alt={item.title} width={150} />
       <p className="text-center text-violet-700 font-bold">${item.price}</p>
-      <p className="text-center">{item.description}</p>
       <span className="text-xs text-gray-600">Stock: {item.stock}</span>
       <a href="_" className="w-7/12 p-2 text-center bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg">Ver Producto</a>
     </div>
