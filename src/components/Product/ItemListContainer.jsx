@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { products } from "../../data/products";
 import Loading from "../extra/Loading";
-import ItemCount from "./ItemCount";
 import ItemList from "./ItemList";
 
 const ItemListContainer = ({ greeting }) => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const onAdd = (count) => {
-    alert("Se Agregaron: " + count + " productos");
-  };
 
   const fetchItems = () => {
     setLoading(true);
@@ -42,7 +37,6 @@ const ItemListContainer = ({ greeting }) => {
     <section className="mt-10">
       <div className="container flex flex-col items-center content-center justify-center mx-auto">
         <p className="font-bold text-2xl">{greeting}</p>
-        <ItemCount initial={1} stock={5} onAdd={onAdd} />
         {loading ? <Loading /> : " "}
         {error && "No se pudieron cargar los productos"}
         {items ? <ItemList items={items}/> : <></>}

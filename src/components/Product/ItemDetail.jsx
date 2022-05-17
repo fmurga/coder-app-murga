@@ -9,13 +9,12 @@ const ItemDetail = ({ item }) => {
   return (
     <div className="container">
       <div className="flex flex-col lg:flex-row mx-auto">
-        <div className="w-full lg:w-6/12 flex flex-col gap-2 mx-auto px-3">
-          <span className="text-lg font-bold py-10">Mujeres/ Ropa/ Sacos</span>
-          <div className="flex justify-center items-center">
+        <div className="w-full lg:w-6/12 flex flex-col gap-2 mx-auto pt-10">
+          <span className="text-lg font-bold">Mujeres/ Ropa/ Sacos</span>
+          <div className="flex justify-center items-center  border-2 rounded-lg p-10">
             <img src={item.pictureUrl} alt={item.title} width={"50%"} />
           </div>
         </div>
-
         <div className="w-full lg:w-6/12 flex flex-col mx-auto p-10">
           <div className="flex flex-row justify-between items-center">
             <h1 className="py-5 text-purple-500 font-bold text-4xl">
