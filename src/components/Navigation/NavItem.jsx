@@ -1,11 +1,27 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-const NavItem = ({ link, nombre }) => {
+const NavItem = ({ id, link, nombre }) => {
+  let activeClassName = "lg:px-6 lg:py-7 bg-indigo-400";
   return (
     <li className="font-bold hover:text-white my-3">
-      <a href={link} className="lg:px-6 lg:py-8 hover:bg-indigo-400">
-        {nombre}
-      </a>
+      {link.includes("category") ? (
+        <NavLink
+          to={`${link}${id}`}
+          className={({ isActive }) =>
+            isActive ? activeClassName : "lg:px-6 lg:py-7 hover:bg-indigo-400"
+          }>
+          {nombre}
+        </NavLink>
+      ) : (
+        <NavLink
+          to={`${link}`}
+          className={({ isActive }) =>
+            isActive ? activeClassName : "lg:px-6 lg:py-7 hover:bg-indigo-400"
+          }>
+          {nombre}
+        </NavLink>
+      )}
     </li>
   );
 };

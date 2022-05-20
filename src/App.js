@@ -1,13 +1,17 @@
-import ItemListContainer from './components/Product/ItemListContainer';
-import NavBar from './components/NavBar';
-import ItemDetailContainer from './components/Product/ItemDetailContainer';
+
+import { BrowserRouter } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
+import NavBar from "./components/Navigation/NavBar";
+import AppRouter from "./routers/AppRouter";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <ItemListContainer greeting={"Bienvenido a Trending"} />
-      <ItemDetailContainer />
+      <BrowserRouter>
+        <NavBar />
+        <AppRouter />
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Item = ({item}) => {
   
@@ -11,7 +12,7 @@ const Item = ({item}) => {
       <img src={item.pictureUrl} alt={item.title} width={150} />
       <p className="text-center text-violet-700 font-bold">${item.price}</p>
       <span className="text-xs text-gray-600">Stock: {item.stock}</span>
-      <a href="_" className="w-7/12 p-2 text-center bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg">Ver Producto</a>
+      <Link to={`/item/${item.id}`} className="w-7/12 p-2 text-center bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg">Ver Producto</Link>
     </div>
   );
 };

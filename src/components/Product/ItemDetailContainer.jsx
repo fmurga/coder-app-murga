@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getItemById } from "../../helpers/getItemById";
 import Loading from "../extra/Loading";
 import ItemDetail from "./ItemDetail";
 
 const ItemDetailContainer = () => {
+  /* Item Id from params */
+  const { id } = useParams();
+
+  /* States */
   const [item, setItem] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  /* Fetch Item */
   const fetchItem = (id) => {
     setLoading(true);
     setError("");
@@ -30,16 +36,18 @@ const ItemDetailContainer = () => {
   };
 
   useEffect(() => {
-    fetchItem("1");
-  }, []);
-
+    fetchItem(id);
+    return () => {
+      setItem({})
+    };
+  }, [id]);
 
   return (
     <section className="mt-10 mb-10">
       <div className="container flex justify-center mx-auto">
         {loading ? <Loading /> : <></>}
         {error && <>{error}</>}
-        {item && <ItemDetail item={item} />}
+        {(Object.keys(item).length !== 0) && <ItemDetail item={item} />}
       </div>
     </section>
   );
