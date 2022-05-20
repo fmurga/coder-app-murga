@@ -1,6 +1,6 @@
 # Trending Preview
 
-![Alt Text](/public/assets/images/trending-Facundo-Murga.gif)
+![Alt Text](https://github.com/fmurga/coder-app-murga/blob/main/public/assets/images/trending-Facundo-Murga.gif?raw=true)
 
 
 # Getting Started with Create React App
