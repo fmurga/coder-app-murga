@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { products } from "../../data/products";
 import Loading from "../extra/Loading";
 import ItemList from "./ItemList";
@@ -7,8 +7,15 @@ import ItemList from "./ItemList";
 const ItemListContainer = ({ greeting }) => {
   const { id } = useParams();
   const [items, setItems] = useState([]);
+  const [itemsFiltered, setItemsFiltered] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentPath, setCurrentPath] = useState("");
+
+  const location = useLocation();
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, [location]);
 
   const fetchItems = () => {
     setLoading(true);
@@ -42,7 +49,7 @@ const ItemListContainer = ({ greeting }) => {
     });
     listado
       .then((res) => {
-        setItems(res);
+        setItemsFiltered(res);
       })
       .catch((error) => {
         setError(error);
@@ -54,16 +61,19 @@ const ItemListContainer = ({ greeting }) => {
 
   useEffect(() => {
     fetchItems();
-  }, []);
-
-  useEffect(() => {
     return () => {
       setItems([]);
-    };
-  }, [id]);
+    }; 
+  }, [currentPath]);
 
   useEffect(() => {
     fetchItemsByCategory(id);
+  }, [id]);
+
+  useEffect(() => {
+    return () => {
+      setItemsFiltered([]);
+    };
   }, [id]);
 
   return (
@@ -72,7 +82,8 @@ const ItemListContainer = ({ greeting }) => {
         <p className="font-bold text-2xl">{greeting}</p>
         {loading ? <Loading /> : " "}
         {error && "No se pudieron cargar los productos"}
-        {items ? <ItemList items={items} /> : <></>}
+        {(items && currentPath === "/") ? <ItemList items={items} /> : <></>}
+        {itemsFiltered ? <ItemList items={itemsFiltered} /> : <></>}
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import icon from "../../assets/images/trending-icon.png";
-import FooterLinks from "./FooterLinks";
 import FooterLinksContainer from "./FooterLinksContainer";
 
 const Footer = () => {
