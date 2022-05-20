@@ -7,12 +7,13 @@ import ItemListContainer from "../components/Product/ItemListContainer";
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<ItemListContainer />} />
-      <Route path="/offers" element={<ItemListContainer />} />
+      <Route path="/" element={<ItemListContainer greeting={"Todos los productos"}/>} />
+      <Route path="/offers" element={<ItemListContainer greeting={"Ofertas"}/>} />
 
+      <Route path="/cart" element={"Carrito"} />
 
-      <Route path="/category" element={<ItemListContainer />} />
-      <Route path="/category/:id" element={<ItemListContainer />} />
+      <Route path="/category" element={<ItemListContainer greeting={"Ropa de "}/>} />
+      <Route path="/category/:id" element={<ItemListContainer greeting={"Ropa de "}/>} />
 
       <Route path="/item/:id" element={<ItemDetailContainer />} />
 

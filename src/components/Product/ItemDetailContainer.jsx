@@ -15,11 +15,12 @@ const ItemDetailContainer = () => {
 
   /* Fetch Item */
   const fetchItem = (id) => {
+    let idProd = parseInt(id);
     setLoading(true);
     setError("");
     const itemProm = new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(getItemById(id));
+        resolve(getItemById(idProd));
         reject("No se encontro el Item");
       }, 3000);
     });
@@ -37,9 +38,6 @@ const ItemDetailContainer = () => {
 
   useEffect(() => {
     fetchItem(id);
-    return () => {
-      setItem({})
-    };
   }, [id]);
 
   return (

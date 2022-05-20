@@ -1,6 +1,6 @@
 export const products = [ 
     {
-        id: "1",
+        id: 1,
         title: "Saco Negro",
         price: 2000,
         stock: 5,
@@ -10,7 +10,7 @@ export const products = [
         category: "mujer"
     },
     {
-        id: "2",
+        id: 2,
         title: "Saco Beige",
         price: 1500,
         stock: 6,
@@ -20,7 +20,7 @@ export const products = [
         category: "mujer"
     },
     {
-        id: "3",
+        id: 3,
         title: "Saco Beige Angosto",
         price: 1900,
         stock: 3,
@@ -30,7 +30,7 @@ export const products = [
         category: "mujer"
     },
     {
-        id: "4",
+        id: 4,
         title: "Saco Rojo",
         price: 1600,
         stock: 4,
@@ -40,7 +40,7 @@ export const products = [
         category: "mujer"
     },
     {
-        id: "5",
+        id: 5,
         title: "Remera Hombre",
         price: 1600,
         stock: 4,
@@ -50,7 +50,7 @@ export const products = [
         category: "hombre"
     },
     {
-        id: "6",
+        id: 6,
         title: "Outfit Hombre Cuero",
         price: 1600,
         stock: 4,
@@ -60,7 +60,7 @@ export const products = [
         category: "hombre"
     },
     {
-        id: "7",
+        id: 7,
         title: "Outfit Niña",
         price: 1600,
         stock: 4,

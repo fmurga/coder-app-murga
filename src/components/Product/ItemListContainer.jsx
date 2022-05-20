@@ -23,7 +23,7 @@ const ItemListContainer = ({ greeting }) => {
     const listado = new Promise((res, rej) => {
       setTimeout(() => {
         res(products);
-        // rej("Error inesperado");
+        rej("Error inesperado");
       }, 3000);
     });
     listado
@@ -63,7 +63,7 @@ const ItemListContainer = ({ greeting }) => {
     fetchItems();
     return () => {
       setItems([]);
-    }; 
+    };
   }, [currentPath]);
 
   useEffect(() => {
@@ -79,10 +79,19 @@ const ItemListContainer = ({ greeting }) => {
   return (
     <section className="mt-10">
       <div className="container flex flex-col items-center content-center justify-center mx-auto">
-        <p className="font-bold text-2xl">{greeting}</p>
+        {isNaN(id) && id !== undefined ? (
+          <p className="font-bold text-2xl">{`${greeting}  ${id}`}</p>
+        ) : (
+          <p className="font-bold text-2xl">{greeting}</p>
+        )}
+
         {loading ? <Loading /> : " "}
         {error && "No se pudieron cargar los productos"}
-        {(items && currentPath === "/") ? <ItemList items={items} /> : <></>}
+        {items && !currentPath.includes("/category") ? (
+          <ItemList items={items} />
+        ) : (
+          <></>
+        )}
         {itemsFiltered ? <ItemList items={itemsFiltered} /> : <></>}
       </div>
     </section>

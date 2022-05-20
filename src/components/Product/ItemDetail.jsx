@@ -1,9 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ItemCount from "./ItemCount";
 
 const ItemDetail = ({ item }) => {
+  const navigate = useNavigate()
   const onAdd = (count) => {
     alert("Se Agregaron: " + count + " productos");
+    return navigate("/cart");
   };
 
   return (
