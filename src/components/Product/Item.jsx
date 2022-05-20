@@ -11,7 +11,7 @@ const Item = ({ item }) => {
       </a>
       <hr className="text-gray-500" />
       <div className="flex h-60 w-auto">
-        <img className="object-contain" src={item.image} alt={item.title} />
+        <img className="object-contain" src={item.pictureUrl} alt={item.title} />
       </div>
       <p className="text-center text-violet-700 font-bold">${item.price}</p>
       <span className="text-xs text-gray-600">Stock: {item.stock}</span>
