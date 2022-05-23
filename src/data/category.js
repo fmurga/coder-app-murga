@@ -1,40 +1,18 @@
 export const category = [
     {
-        id: "mujer",
+        id: "1",
         name: "Mujer",
-        path: "/category/",
-        subcategory: [
-            {id: 1, path:"zapm", name: "Zapatos Mujer"},
-            {id: 2, path:"sacm", name: "Sacos Mujer"},
-            {id: 3, path:"camm", name: "Camisetas Mujer"},
-        ]
+        path: "mujer",
     },
     {
-        id: "hombre",
+        id: "2",
         name: "Hombre",
-        path: "/category/",
-        subcategory: [
-            {id: 1, path:"zapm", name: "Zapatos Hombre"},
-            {id: 2, path:"sacm", name: "Sacos Hombre"},
-            {id: 3, path:"camm", name: "Camisetas Hombre"},
-        ]
+        path: "hombre",
     },    
     {
-        id: "niños",
+        id: "3",
         name: "Niños",
-        path: "/category/",
-        subcategory: [
-            {id: 1, path:"zapm", name: "Zapatos Niños"},
-            {id: 2, path:"sacm", name: "Sacos Niños"},
-            {id: 3, path:"camm", name: "Camisetas Niños"},
-        ]
-    },    
-    {
-        id: "offers",
-        name: "Ofertas",
-        path: "/offers",
-        subcategory: []
-    },
-
+        path: "niños",
+    }
 ]
 

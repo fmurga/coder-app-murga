@@ -22,7 +22,7 @@ const ItemDetailContainer = () => {
       setTimeout(() => {
         resolve(getItemById(idProd));
         reject("No se encontro el Item");
-      }, 3000);
+      }, 1000);
     });
     itemProm
       .then((res) => {
@@ -42,7 +42,7 @@ const ItemDetailContainer = () => {
 
   return (
     <section className="mt-10 mb-10">
-      <div className="container flex justify-center mx-auto">
+      <div className="container flex justify-center mx-auto h-full">
         {loading ? <Loading /> : <></>}
         {error && <>{error}</>}
         {(Object.keys(item).length !== 0) && <ItemDetail item={item} />}

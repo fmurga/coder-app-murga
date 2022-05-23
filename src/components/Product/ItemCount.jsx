@@ -43,7 +43,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   }, [disableAdd, disableDec, count, stock]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-3 items-center">
+    <div className="flex flex-col lg:flex-row gap-3 items-center bottom-0 relative">
       <span className="text-xs text-gray-600">Stock: {stock}</span>
       <div className="flex flex-row gap-2 justify-between my-3">
         <ButtonContainer onClick={decrement} disable={disableDec}>

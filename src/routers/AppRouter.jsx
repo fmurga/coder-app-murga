@@ -12,7 +12,7 @@ const AppRouter = () => {
 
       <Route path="/cart" element={"Carrito"} />
 
-      <Route path="/category" element={<ItemListContainer greeting={"Ropa de "}/>} />
+      {/* <Route path="/category" element={<CategoryListContainer />} /> */}
       <Route path="/category/:id" element={<ItemListContainer greeting={"Ropa de "}/>} />
 
       <Route path="/item/:id" element={<ItemDetailContainer />} />

@@ -5,7 +5,7 @@ import FooterLinksContainer from "./FooterLinksContainer";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-200 bg-black bottom-0 pb-6 relative">
+    <footer className="border-t border-gray-200 bg-black bottom-0 pb-6">
       <div
         className="container flex flex-col flex-wrap px-4 py-16 mx-auto md:items-center lg:items-start md:flex-row md:flex-nowrap
       ">

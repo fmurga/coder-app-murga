@@ -5,7 +5,7 @@ import LoginWidget from "../extra/LoginWidget";
 import CartWidget from "../extra/CartWidget";
 import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
-import { category } from "../../data/category";
+import { links } from "../../data/links";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -15,7 +15,7 @@ const NavBar = () => {
   const fetchCategories = () => {
     const categoriesProm = new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(category)
+        resolve(links);
         reject("No se encontro la categoria");
       }, 1000);
     });
@@ -25,13 +25,12 @@ const NavBar = () => {
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
   };
 
   useEffect(() => {
-    fetchCategories()
-  }, [])
-  
+    fetchCategories();
+  }, []);
 
   return (
     <nav className="sticky w-full z-10 top-0 flex flex-wrap items-center justify-between px-2 py-0 bg-black">
@@ -60,8 +59,14 @@ const NavBar = () => {
           }>
           <ul className="flex flex-col items-center lg:flex-row list-none lg:ml-0 text-white">
             {categories &&
-              categories.map((link, idx) => (
-                <NavItem key={idx} id={link.id} link={link.path} nombre={link.name} />
+              categories.map((link) => (
+                <NavItem
+                  key={link.id}
+                  id={link.id}
+                  link={link.path}
+                  name={link.name}
+                  subcategories={link.subcategories}
+                />
               ))}
             {openNav && (
               <li className="my-3 lg:hidden xl:hidden flex flex-row items-center justify-between gap-1">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { products } from "../../data/products";
 import Loading from "../extra/Loading";
 import ItemList from "./ItemList";
@@ -7,49 +7,31 @@ import ItemList from "./ItemList";
 const ItemListContainer = ({ greeting }) => {
   const { id } = useParams();
   const [items, setItems] = useState([]);
-  const [itemsFiltered, setItemsFiltered] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [currentPath, setCurrentPath] = useState("");
+  // const [currentPath, setCurrentPath] = useState("");
 
-  const location = useLocation();
-  useEffect(() => {
-    setCurrentPath(location.pathname);
-  }, [location]);
+  // const location = useLocation();
 
-  const fetchItems = () => {
+
+  const fetchItems = (id) => {
     setLoading(true);
     setError("");
     const listado = new Promise((res, rej) => {
-      setTimeout(() => {
-        res(products);
-        rej("Error inesperado");
-      }, 3000);
-    });
-    listado
-      .then((res) => {
-        setItems(res);
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+      // setTimeout(() => {
 
-  const fetchItemsByCategory = (id) => {
-    setLoading(true);
-    setError("");
-    const listado = new Promise((res, rej) => {
-      setTimeout(() => {
+      // }, 500);
+      if (id !== undefined) {
         res(products.filter((product) => product.category === id));
-        // rej("Error inesperado");
-      }, 3000);
+      }else {
+        res(products)
+      }
+      
+      rej("Error inesperado");
     });
     listado
       .then((res) => {
-        setItemsFiltered(res);
+        setItems(res)
       })
       .catch((error) => {
         setError(error);
@@ -59,22 +41,24 @@ const ItemListContainer = ({ greeting }) => {
       });
   };
 
+  // useEffect(() => {
+  //   setCurrentPath(location.pathname);
+  // }, [location]);
+
+
+  // useEffect(() => {
+  //   return () => {
+  //     setItems([]);
+  //   };
+  // }, [currentPath]);
+
   useEffect(() => {
-    fetchItems();
+    fetchItems(id);
     return () => {
       setItems([]);
     };
-  }, [currentPath]);
-
-  useEffect(() => {
-    fetchItemsByCategory(id);
   }, [id]);
 
-  useEffect(() => {
-    return () => {
-      setItemsFiltered([]);
-    };
-  }, [id]);
 
   return (
     <section className="mt-10">
@@ -87,12 +71,7 @@ const ItemListContainer = ({ greeting }) => {
 
         {loading ? <Loading /> : " "}
         {error && "No se pudieron cargar los productos"}
-        {items && !currentPath.includes("/category") ? (
-          <ItemList items={items} />
-        ) : (
-          <></>
-        )}
-        {itemsFiltered ? <ItemList items={itemsFiltered} /> : <></>}
+        {items? <ItemList items={items} /> : <></>}
       </div>
     </section>
   );
