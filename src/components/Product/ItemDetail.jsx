@@ -44,7 +44,7 @@ const ItemDetail = ({ item }) => {
             <p className="text-xl">{item.description}</p>
             <SizesSelector sizes={item.sizes} />
           </div>
-          {count === 0 && !isInCart(item) ? (
+          {count === 0 && !isInCart(item.id) ? (
             <>
               {item && (
                 <ItemCount

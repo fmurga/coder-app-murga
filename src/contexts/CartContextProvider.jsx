@@ -7,7 +7,7 @@ const CartContextProvider = ({ children }) => {
   const [itemCount, setItemCount] = useState(0);
 
   const addItem = (item, quantity) => {
-    if (isInCart(item)) {
+    if (isInCart(item.id)) {
       return;
     } else {
       console.log(quantity);
@@ -27,10 +27,10 @@ const CartContextProvider = ({ children }) => {
     setCartItems([]);
   };
 
-  const isInCart = (item) => {
+  const isInCart = (itemId) => {
     let i;
     for (i = 0; i < cartItems.length; i++) {
-      if (cartItems[i].id === item.id) {
+      if (cartItems[i].id === itemId) {
         return true;
       }
     }
