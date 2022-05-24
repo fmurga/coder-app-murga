@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import icon from "../../assets/images/trending-icon.png";
 import { Menu } from "@mui/icons-material";
 import LoginWidget from "../extra/LoginWidget";
@@ -6,12 +6,13 @@ import CartWidget from "../extra/CartWidget";
 import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
 import { links } from "../../data/links";
+import { CartContext } from "../../contexts/CartContextProvider";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
   const [categories, setCategories] = useState([]);
+  const {itemCount} = useContext(CartContext)
 
-  /* Dont think getting categories like this for a navbar is a good thing to do */
   const fetchCategories = () => {
     const categoriesProm = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -70,14 +71,14 @@ const NavBar = () => {
               ))}
             {openNav && (
               <li className="my-3 lg:hidden xl:hidden flex flex-row items-center justify-between gap-1">
-                <CartWidget />
+                <CartWidget itemCount={itemCount}/>
                 <LoginWidget />
               </li>
             )}
           </ul>
         </div>
         <div className="right hidden lg:flex lg:flex-row items-center justify-between gap-1">
-          <CartWidget />
+          <CartWidget itemCount={itemCount}/>
           <LoginWidget />
         </div>
       </div>

@@ -1,14 +1,19 @@
 import { ShoppingBag } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../../contexts/CartContextProvider";
 import { ButtonContainer } from "../buttons/ButtonContainer";
 import ItemCount from "./ItemCount";
+import SizesSelector from "./SizesSelector";
 
 const ItemDetail = ({ item }) => {
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
+  const { addItem, isInCart } = useContext(CartContext);
+
   const onAdd = (count) => {
     setCount(count);
+    addItem(item, count);
     alert("Se Agregaron: " + count + " productos");
   };
 
@@ -37,8 +42,9 @@ const ItemDetail = ({ item }) => {
               <p className="text-lg font-semibold">${item.price}</p>
             </div>
             <p className="text-xl">{item.description}</p>
+            <SizesSelector sizes={item.sizes} />
           </div>
-          {count === 0 ? (
+          {count === 0 && !isInCart(item) ? (
             <>
               {item && (
                 <ItemCount
