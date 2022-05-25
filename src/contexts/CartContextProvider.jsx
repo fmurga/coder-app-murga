@@ -8,10 +8,12 @@ const CartContextProvider = ({ children }) => {
 
   const addItem = (item, quantity) => {
     if (isInCart(item.id)) {
-      return;
+      let aux = cartItems.find((prod) => prod.id === item.id);
+      cartItems.splice((prod) => prod.id === item.id);
+      aux.quantity = aux.quantity + quantity;
+      setCartItems([...cartItems, aux]);
+      setItemCount(itemCount + quantity);
     } else {
-      console.log(quantity);
-      // let num = quantity.toString();
       item.quantity = quantity;
       setCartItems([...cartItems, item]);
       setItemCount(itemCount + quantity);
@@ -19,12 +21,28 @@ const CartContextProvider = ({ children }) => {
   };
 
   const removeItem = (itemId) => {
+    const removed = cartItems.find((item) => item.id === itemId);
     const newCartItems = cartItems.filter((item) => item.id !== itemId);
-    setCartItems(...newCartItems);
+    setCartItems([...newCartItems]);
+    setItemCount(itemCount - removed.quantity);
+  };
+
+  //TODO: Mejorar logica esta medio extraña
+  const modifyCartItemQuantity = (itemId, newQuantity) => {
+    const aux = cartItems.find((prod) => prod.id === itemId);
+    cartItems.splice((prod) => prod.id === itemId);
+    aux.quantity = newQuantity;
+    if (newQuantity > aux.quantity) {
+      setItemCount(itemCount + (itemCount - newQuantity));
+    } else {
+      setItemCount(itemCount - (itemCount - newQuantity));
+    }
+    setCartItems([...cartItems, aux]);
   };
 
   const clear = () => {
     setCartItems([]);
+    setItemCount(0);
   };
 
   const isInCart = (itemId) => {
@@ -38,13 +56,19 @@ const CartContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    let items = cartItems;
-    console.log('items :>> ', items);
-  }, [cartItems])
-  
+    console.log("cartItems :>> ", cartItems);
+  }, [cartItems]);
 
   return (
-    <CartContext.Provider value={{ addItem, removeItem, clear, itemCount, isInCart }}>
+    <CartContext.Provider
+      value={{
+        addItem,
+        removeItem,
+        clear,
+        itemCount,
+        cartItems,
+        modifyCartItemQuantity,
+      }}>
       {children}
     </CartContext.Provider>
   );
