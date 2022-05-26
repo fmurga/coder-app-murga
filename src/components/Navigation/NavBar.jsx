@@ -7,6 +7,8 @@ import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
 import { links } from "../../data/links";
 import { CartContext } from "../../contexts/CartContextProvider";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -14,19 +16,17 @@ const NavBar = () => {
   const {itemCount} = useContext(CartContext)
 
   const fetchCategories = () => {
-    const categoriesProm = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(links);
-        reject("No se encontro la categoria");
-      }, 1000);
-    });
-    categoriesProm
-      .then((res) => {
-        setCategories(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const categories= collection(db, "links");
+      getDocs(categories)
+        .then((snapshot) => {
+          if (snapshot.size === 0) {
+            console.log("No results :>> ");
+          }
+          setCategories(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   };
 
   useEffect(() => {

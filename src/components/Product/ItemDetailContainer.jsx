@@ -1,5 +1,7 @@
+import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { db } from "../../firebase/firebaseConfig";
 import { getItemById } from "../../helpers/getItemById";
 import Loading from "../extra/Loading";
 import ItemDetail from "./ItemDetail";
@@ -15,18 +17,15 @@ const ItemDetailContainer = () => {
 
   /* Fetch Item */
   const fetchItem = (id) => {
-    let idProd = parseInt(id);
     setLoading(true);
     setError("");
-    const itemProm = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(getItemById(idProd));
-        reject("No se encontro el Item");
-      }, 1000);
-    });
-    itemProm
-      .then((res) => {
-        setItem(res);
+    const item = doc(db, "products", id);
+    getDoc(item)
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          console.log("No results :>> ");
+        }
+        setItem({ id: snapshot.id, ...snapshot.data() });
       })
       .catch((error) => {
         setError(error);
@@ -45,7 +44,7 @@ const ItemDetailContainer = () => {
       <div className="container flex justify-center mx-auto h-full">
         {loading ? <Loading /> : <></>}
         {error && <>{error}</>}
-        {(Object.keys(item).length !== 0) && <ItemDetail item={item} />}
+        {Object.keys(item).length !== 0 && <ItemDetail item={item} />}
       </div>
     </section>
   );

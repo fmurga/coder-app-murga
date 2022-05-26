@@ -8,41 +8,36 @@ const CartContextProvider = ({ children }) => {
 
   const addItem = (item, quantity) => {
     if (isInCart(item.id)) {
-      let aux = cartItems.find((prod) => prod.id === item.id);
-      cartItems.splice((prod) => prod.id === item.id);
+      const aux = cartItems.find((prod) => prod.id === item.id);
+      const newCartItems = cartItems.filter((prod) => prod.id !== item.id);
       aux.quantity = aux.quantity + quantity;
-      setCartItems([...cartItems, aux]);
-      setItemCount(itemCount + quantity);
+      setCartItems([...newCartItems, aux]);
     } else {
       item.quantity = quantity;
       setCartItems([...cartItems, item]);
-      setItemCount(itemCount + quantity);
     }
   };
 
   const removeItem = (itemId) => {
-    const removed = cartItems.find((item) => item.id === itemId);
     const newCartItems = cartItems.filter((item) => item.id !== itemId);
     setCartItems([...newCartItems]);
-    setItemCount(itemCount - removed.quantity);
   };
 
-  //TODO: Mejorar logica esta medio extraña
   const modifyCartItemQuantity = (itemId, newQuantity) => {
     const aux = cartItems.find((prod) => prod.id === itemId);
-    cartItems.splice((prod) => prod.id === itemId);
+    const newCartItems = cartItems.filter((prod) => prod.id !== itemId);
     aux.quantity = newQuantity;
-    if (newQuantity > aux.quantity) {
-      setItemCount(itemCount + (itemCount - newQuantity));
-    } else {
-      setItemCount(itemCount - (itemCount - newQuantity));
-    }
-    setCartItems([...cartItems, aux]);
+    setCartItems([...newCartItems, aux]);
+  };
+
+  const totalInCart = () => {
+    return cartItems.reduce((acc, prod) => {
+      return (acc = acc + prod.quantity);
+    }, 0);
   };
 
   const clear = () => {
     setCartItems([]);
-    setItemCount(0);
   };
 
   const isInCart = (itemId) => {
@@ -56,7 +51,7 @@ const CartContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("cartItems :>> ", cartItems);
+    setItemCount(totalInCart());
   }, [cartItems]);
 
   return (

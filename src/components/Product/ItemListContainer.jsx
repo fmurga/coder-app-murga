@@ -1,6 +1,7 @@
+import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { products } from "../../data/products";
+import { db } from "../../firebase/firebaseConfig";
 import Loading from "../extra/Loading";
 import ItemList from "./ItemList";
 
@@ -9,48 +10,42 @@ const ItemListContainer = ({ greeting }) => {
   const [items, setItems] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [currentPath, setCurrentPath] = useState("");
 
-  // const location = useLocation();
-
-
-  const fetchItems = (id) => {
+  const fetchItems = () => {
     setLoading(true);
     setError("");
-    const listado = new Promise((res, rej) => {
-      // setTimeout(() => {
-
-      // }, 500);
-      if (id !== undefined) {
-        res(products.filter((product) => product.category === id));
-      }else {
-        res(products)
-      }
-      
-      rej("Error inesperado");
-    });
-    listado
-      .then((res) => {
-        setItems(res)
-      })
-      .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (id !== undefined) {
+      const q = query(collection(db, "products"), where("category", "==", id));
+      getDocs(q)
+        .then((snapshot) => {
+          if (snapshot.size === 0) {
+            console.log("No results :>> ");
+          }
+          setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      const products = collection(db, "products");
+      getDocs(products)
+        .then((snapshot) => {
+          if (snapshot.size === 0) {
+            console.log("No results :>> ");
+          }
+          setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
-
-  // useEffect(() => {
-  //   setCurrentPath(location.pathname);
-  // }, [location]);
-
-
-  // useEffect(() => {
-  //   return () => {
-  //     setItems([]);
-  //   };
-  // }, [currentPath]);
 
   useEffect(() => {
     fetchItems(id);
@@ -58,7 +53,6 @@ const ItemListContainer = ({ greeting }) => {
       setItems([]);
     };
   }, [id]);
-
 
   return (
     <section className="mt-10">
@@ -71,7 +65,7 @@ const ItemListContainer = ({ greeting }) => {
 
         {loading ? <Loading /> : " "}
         {error && "No se pudieron cargar los productos"}
-        {items? <ItemList items={items} /> : <></>}
+        {items ? <ItemList items={items} /> : <></>}
       </div>
     </section>
   );
