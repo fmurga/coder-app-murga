@@ -2,6 +2,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig";
+import Container from "../extra/Container";
 import Loading from "../extra/Loading";
 import ItemList from "./ItemList";
 
@@ -55,19 +56,16 @@ const ItemListContainer = ({ greeting }) => {
   }, [id]);
 
   return (
-    <section className="mt-10">
-      <div className="container flex flex-col items-center content-center justify-center mx-auto">
-        {isNaN(id) && id !== undefined ? (
-          <p className="font-bold text-2xl">{`${greeting}  ${id}`}</p>
-        ) : (
-          <p className="font-bold text-2xl">{greeting}</p>
-        )}
-
-        {loading ? <Loading /> : " "}
-        {error && "No se pudieron cargar los productos"}
-        {items ? <ItemList items={items} /> : <></>}
-      </div>
-    </section>
+    <Container>
+      {isNaN(id) && id !== undefined ? (
+        <h1 className="font-bold text-2xl">{`${greeting}  ${id}`}</h1>
+      ) : (
+        <h1 className="font-bold text-2xl">{greeting}</h1>
+      )}
+      {loading ? <Loading /> : " "}
+      {error && "No se pudieron cargar los productos"}
+      {items ? <ItemList items={items} /> : <></>}
+    </Container>
   );
 };
 

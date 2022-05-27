@@ -12,21 +12,3 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-
-// products.forEach(function (obj) {
-//   addDoc(collection(db, "products"), {
-//       title: obj.title,
-//       description: obj.description,
-//       price: obj.price,
-//       category: obj.category,
-//       sizes: obj.sizes,
-//       pictureUrl: obj.pictureUrl,
-//       initial: obj.initial,
-//     })
-//     .then(function (docRef) {
-//       console.log("Document written with ID: ", docRef.id);
-//     })
-//     .catch(function (error) {
-//       console.error("Error adding document: ", error);
-//     });
-// });

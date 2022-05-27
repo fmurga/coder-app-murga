@@ -1,41 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import { CheckOutlined } from "@mui/icons-material";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 
 const CartPaymentDetail = () => {
-  const [subtotal, setSubtotal] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [impuestos, setImpuestos] = useState(0);
-  
-  const {cartItems} = useContext(CartContext);
-
-
-  const calcSubtotal = () => {
-    let subtotal = 0;
-    cartItems.forEach(item => {
-      subtotal = subtotal + (item.quantity * item.price);
-    });
-    setSubtotal(subtotal);
-  }
-
-  const calcImpuestos = () => {
-    let impuestos = 0;
-    cartItems.forEach(item => {
-      impuestos = impuestos + (item.quantity * item.price * 0.21);
-    });
-    setImpuestos(impuestos)
-  }
-
-  const calcTotal = () => {
-    setTotal(impuestos + subtotal)
-  }
-
-  useEffect(() => {
-    calcSubtotal();
-    calcImpuestos();
-    calcTotal();
-  }, [subtotal, impuestos, total])
-  
-
+  const { subtotal, total, impuestos } = useContext(CartContext);
 
   return (
     <div className="container w-5/12 h-full bg-slate-200 mt-0 pt-6 p-10 m-10 rounded-md">
@@ -44,12 +13,22 @@ const CartPaymentDetail = () => {
           Detalle de Compra
         </h2>
         <p className="text-gray-500 border border-x-0 border-t-0 border-b-slate-50 py-2">
-          Subtotal: {subtotal}
+          Subtotal: {subtotal || 0}
         </p>
         <p className="text-gray-500 border border-x-0 border-t-0 border-b-slate-50 py-2">
-          Impuestos: {impuestos}
+          Impuestos: {impuestos || 0}
         </p>
-        <p className="text-black pt-2 font-bold text-lg">Total: {total}</p>
+        <div className="inline-flex justify-between">
+          <p className="text-black pt-2 font-bold text-lg">
+            Total: {total || 0}
+          </p>
+          <NavLink
+            to="/checkout"
+            className="px-3 py-2 w-max  text-white flex justify-center items-center cursor-pointer bg-purple-600 rounded-full hover:bg-purple-400 disabled:bg-purple-400 ">
+            <CheckOutlined />
+            Checkout
+          </NavLink>
+        </div>
       </div>
     </div>
   );

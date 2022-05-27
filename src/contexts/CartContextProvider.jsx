@@ -5,6 +5,9 @@ export const CartContext = createContext([]);
 const CartContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [itemCount, setItemCount] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [impuestos, setImpuestos] = useState(0);
 
   const addItem = (item, quantity, selectedSize) => {
     if (isInCart(item.id)) {
@@ -15,6 +18,7 @@ const CartContextProvider = ({ children }) => {
       setCartItems([...newCartItems, aux]);
     } else {
       item.quantity = quantity;
+      item.sizeSelected = selectedSize;
       setCartItems([...cartItems, item]);
     }
   };
@@ -51,6 +55,26 @@ const CartContextProvider = ({ children }) => {
     return false;
   };
 
+  const calcSubtotal = () => {
+    let subtotal = 0;
+    cartItems.forEach((item) => {
+      subtotal = subtotal + item.quantity * item.price;
+    });
+    setSubtotal(subtotal);
+  };
+
+  const calcImpuestos = () => {
+    let impuestos = 0;
+    cartItems.forEach((item) => {
+      impuestos = impuestos + item.quantity * item.price * 0.21;
+    });
+    setImpuestos(impuestos);
+  };
+
+  const calcTotal = () => {
+    setTotal(impuestos + subtotal);
+  };
+
   useEffect(() => {
     setItemCount(totalInCart());
   }, [cartItems]);
@@ -59,6 +83,12 @@ const CartContextProvider = ({ children }) => {
     let aux = cartItems;
     console.log("cartItems", aux);
   }, [cartItems]);
+
+  useEffect(() => {
+    calcSubtotal();
+    calcImpuestos();
+    calcTotal();
+  }, [cartItems, subtotal, impuestos]);
 
   return (
     <CartContext.Provider
@@ -69,6 +99,9 @@ const CartContextProvider = ({ children }) => {
         itemCount,
         cartItems,
         modifyCartItemQuantity,
+        total,
+        subtotal,
+        impuestos,
       }}>
       {children}
     </CartContext.Provider>

@@ -49,7 +49,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
         <ButtonContainer onClick={decrement} disable={disableDec}>
           <RemoveIcon />
         </ButtonContainer>
-        <label className="text-center w-44 bg-slate-200 rounded-lg">
+        <label className="text-center pt-2 w-44 bg-slate-200 rounded-lg">
           {count} 
         </label>
         <ButtonContainer onClick={add} disable={disableAdd}>

@@ -11,7 +11,6 @@ const SizesSelector = ({ sizes }) => {
   const {setSharedSelectedSize} = useContext(SizesContext)
 
   useEffect(() => {
-    console.log('selectedSize', selectedSize)
     setSharedSelectedSize(selectedSize)
   }, [selectedSize])
   
