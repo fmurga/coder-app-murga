@@ -22,7 +22,8 @@ const ItemDetail = ({ item }) => {
 
   const onAdd = (count) => {
     setCount(count);
-    addItem(item, count);
+    console.log('shared', sharedSize.name)
+    addItem(item, count, sharedSize.name);
     setOpenModal(true);
   };
 

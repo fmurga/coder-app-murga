@@ -36,7 +36,7 @@ const CartItem = ({ item }) => {
         <div>
           <h2 className="text-purple-600 font-bold text-md">{item.title}</h2>
           <p className="text-lg font-semibold">
-            Talle: <span className="font-normal">{item.selectedSize}</span>
+            Talle: <span className="font-normal">{item.sizeSelected}</span>
           </p>
           <p className="text-md font-semibold">${item.price}</p>
         </div>

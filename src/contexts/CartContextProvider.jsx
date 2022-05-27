@@ -6,11 +6,12 @@ const CartContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [itemCount, setItemCount] = useState(0);
 
-  const addItem = (item, quantity) => {
+  const addItem = (item, quantity, selectedSize) => {
     if (isInCart(item.id)) {
       const aux = cartItems.find((prod) => prod.id === item.id);
       const newCartItems = cartItems.filter((prod) => prod.id !== item.id);
       aux.quantity = aux.quantity + quantity;
+      aux.sizeSelected = selectedSize;
       setCartItems([...newCartItems, aux]);
     } else {
       item.quantity = quantity;
@@ -52,6 +53,11 @@ const CartContextProvider = ({ children }) => {
 
   useEffect(() => {
     setItemCount(totalInCart());
+  }, [cartItems]);
+
+  useEffect(() => {
+    let aux = cartItems;
+    console.log("cartItems", aux);
   }, [cartItems]);
 
   return (

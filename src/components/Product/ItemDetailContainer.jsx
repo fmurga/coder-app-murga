@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SizesProvider from "../../contexts/SizesProvider";
 import { db } from "../../firebase/firebaseConfig";
-import { getItemById } from "../../helpers/getItemById";
 import Loading from "../extra/Loading";
 import ItemDetail from "./ItemDetail";
 
