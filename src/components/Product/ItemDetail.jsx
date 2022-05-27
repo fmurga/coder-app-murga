@@ -2,6 +2,7 @@ import { ShoppingBag } from "@mui/icons-material";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
+import { SizesContext } from "../../contexts/SizesProvider";
 import { ButtonContainer } from "../buttons/ButtonContainer";
 import ModalAccept from "../Modals/ModalAccept";
 import ItemCount from "./ItemCount";
@@ -9,6 +10,8 @@ import SizesSelector from "./SizesSelector";
 
 const ItemDetail = ({ item }) => {
   const navigate = useNavigate();
+  const {sharedSize} = useContext(SizesContext)
+
   const [openModal, setOpenModal] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -56,7 +59,7 @@ const ItemDetail = ({ item }) => {
                 {item && (
                   <ItemCount
                     initial={item.initial}
-                    stock={item.stock}
+                    stock={sharedSize.stock}
                     onAdd={onAdd}
                   />
                 )}
