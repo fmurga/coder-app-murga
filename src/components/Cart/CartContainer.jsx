@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../contexts/CartContextProvider";
-import { ButtonContainer } from "../buttons/ButtonContainer";
 import EmptyCart from "../extra/EmptyCart";
 import CartItemList from "./CartItemList";
 import CartPaymentDetail from "./CartPaymentDetail";

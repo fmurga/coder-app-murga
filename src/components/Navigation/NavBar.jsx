@@ -5,7 +5,6 @@ import LoginWidget from "../extra/LoginWidget";
 import CartWidget from "../extra/CartWidget";
 import NavItem from "./NavItem";
 import { Link } from "react-router-dom";
-import { links } from "../../data/links";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";

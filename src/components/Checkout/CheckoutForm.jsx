@@ -1,5 +1,18 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { db } from "../../firebase/firebaseConfig";
@@ -9,13 +22,17 @@ import ModalAcceptBuy from "../Modals/ModalAcceptBuy";
 const CheckoutForm = () => {
   const { cartItems, total, clear } = useContext(CartContext);
   const [submited, setSubmited] = useState(false);
+  const [error, setError] = useState("");
   const [orederId, setOrderId] = useState("");
   const [open, setOpen] = useState(false);
-  const initialForm = {
-    name: "",
-    email: "",
-    phone: "",
-  };
+  const initialForm = useMemo(() => {
+    return {
+      name: "",
+      email: "",
+      phone: "",
+    };
+  }, []);
+
   const [form, setForm] = useState(initialForm);
   const modalMessage = `Se ha creado tu compra con id ${orederId}`;
   const modalTitle = "Compra Exitosa";
@@ -30,7 +47,6 @@ const CheckoutForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const buyer = form;
-
     const items = cartItems.map((item) => ({
       id: item.id,
       title: item.title,
@@ -42,26 +58,78 @@ const CheckoutForm = () => {
       date: serverTimestamp(),
       total: total,
     };
-    const ordersColl = collection(db, "orders");
-    addDoc(ordersColl, order).then(({ id }) => {
-      setOrderId(id);
-      setOpen(true);
+    checkItemsStock().then((res) => {
+      if (res.includes(false)) {
+        console.log("No hay Stock :>> ");
+        setError(
+          "No se ha podido procesar la compra, intente nuevamente mas tarde"
+        );
+      } else {
+        updateStock();
+        const ordersColl = collection(db, "orders");
+        addDoc(ordersColl, order).then(({ id }) => {
+          setOrderId(id);
+          setOpen(true);
+        });
+      }
     });
   };
-  
+
+  const checkItemsStock = () => {
+    const promises = [];
+
+    cartItems.forEach((prod) => {
+      const productRef = doc(db, "products", prod.id);
+      const promise = getDoc(productRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const aux = snapshot
+              .data()
+              .sizes.filter((size) => size.name === prod.sizeSelected);
+            if (aux[0].stock < prod.quantity) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+        })
+        .catch((err) => console.log("error :>>", err));
+      promises.push(promise);
+    });
+    return Promise.all(promises);
+  };
+
+  const updateStock = () => {
+    cartItems.forEach((element) => {
+      const aux = element.sizes.filter(
+        (size) => size.name === element.sizeSelected
+      );
+      aux[0].stock = aux[0].stock - element.quantity;
+      if (aux[0].stock === 0) {
+        aux[0].inStock = false;
+      }
+      const itemRef = doc(db, "products", element.id);
+      updateDoc(itemRef, element);
+    });
+  };
+
+  const endBuy = useCallback(() => {
+    setForm(initialForm);
+    clear();
+    navigate("/");
+  }, [clear, initialForm, navigate]);
 
   useEffect(() => {
     if (submited) {
-      setForm(initialForm);
-      clear();
-      navigate("/");
+      endBuy();
     }
-  }, [submited]);
+  }, [endBuy, submited]);
 
   return (
     <>
       <div className="w-5/12 h-full rounded-md">
         <div className="leading-loose">
+          <p>{error}</p>
           <form
             className="w-full p-10 bg-white rounded shadow-xl"
             onSubmit={handleSubmit}>
