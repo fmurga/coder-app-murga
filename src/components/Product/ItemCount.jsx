@@ -57,8 +57,10 @@ const ItemCount = ({ stock, initial, onAdd }) => {
         </ButtonContainer>
       </div>
       <button
-        className="w-full lg:w-3/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg"
-        onClick={() => onAdd(count)}>
+        className="w-full lg:w-3/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg disabled:bg-purple-400"
+        onClick={() => onAdd(count)}
+        disabled={(stock === 0)}
+        >
           <ShoppingCart /> Agregar
       </button>
     </div>

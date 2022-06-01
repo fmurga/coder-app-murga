@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { SizesContext } from "../../contexts/SizesProvider";
+import { getItemById } from "../../helpers/getItemById";
 import { ButtonContainer } from "../buttons/ButtonContainer";
 import ModalAccept from "../Modals/ModalAccept";
 import ItemCount from "./ItemCount";
@@ -10,7 +11,8 @@ import SizesSelector from "./SizesSelector";
 
 const ItemDetail = ({ item }) => {
   const navigate = useNavigate();
-  const {sharedSize} = useContext(SizesContext)
+  const { sharedSize } = useContext(SizesContext);
+  const { cartItems } = useContext(CartContext);
 
   const [openModal, setOpenModal] = useState(false);
   const [count, setCount] = useState(0);
@@ -19,6 +21,8 @@ const ItemDetail = ({ item }) => {
 
   const modalMessage = `Se han agregado: ${count} ${item.title} al carrito de compras`;
   const modalTitle = "Productos Agregados";
+
+  const itemInit = getItemById(item.id, cartItems);
 
   const onAdd = (count) => {
     setCount(count);
@@ -54,22 +58,19 @@ const ItemDetail = ({ item }) => {
               <p className="text-xl">{item.description}</p>
               <SizesSelector sizes={item.sizes} />
             </div>
-            {count === 0 ? (
+            {item && sharedSize.stock >= 0 && (
               <>
-                {item && (
-                  <ItemCount
-                    initial={item.initial}
-                    stock={sharedSize.stock}
-                    onAdd={onAdd}
-                  />
+                <ItemCount
+                  initial={(itemInit && itemInit.quantity) || 0}
+                  stock={sharedSize.stock}
+                  onAdd={onAdd}
+                />
+                {count > 0 && (
+                  <ButtonContainer onClick={() => endBuy()} >
+                    <ShoppingBag />
+                    Finalizar Compra 
+                  </ButtonContainer>
                 )}
-              </>
-            ) : (
-              <>
-                <ButtonContainer onClick={() => endBuy()}>
-                  <ShoppingBag />
-                  Finalizar Compra
-                </ButtonContainer>
               </>
             )}
           </div>

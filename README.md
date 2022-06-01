@@ -2,6 +2,10 @@
 
 ![Alt Text](https://github.com/fmurga/coder-app-murga/blob/main/public/assets/images/trending-Facundo-Murga.gif?raw=true)
 
+Para ver una version en vivo ingresar a 
+https://ecommerce-trending.netlify.app/ 
+
+
 
 # Getting Started with Create React App
 

@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig";
 import Container from "../extra/Container";
@@ -12,7 +12,7 @@ const ItemListContainer = ({ greeting }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchItems = () => {
+  const fetchItems = useCallback(() => {
     setLoading(true);
     setError("");
     if (id !== undefined) {
@@ -46,14 +46,14 @@ const ItemListContainer = ({ greeting }) => {
           setLoading(false);
         });
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchItems(id);
     return () => {
       setItems([]);
     };
-  }, [id]);
+  }, [fetchItems, id]);
 
   return (
     <Container>
