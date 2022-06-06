@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Select from "react-select";
 import { CartContext } from "../../contexts/CartContextProvider";
+import { NavLink } from "react-router-dom";
 
 const CartItem = ({ item }) => {
   const { modifyCartItemQuantity, removeItem } = useContext(CartContext);
@@ -36,12 +37,13 @@ const CartItem = ({ item }) => {
               width={100}
             />
             <div>
-              <h2 className="text-purple-600 font-bold text-md">
-                {item.title}
-              </h2>
+              <NavLink to={`/item/${item.id}`}>
+                <h2 className="text-purple-600 font-bold text-md">
+                  {item.title}
+                </h2>
+              </NavLink>
               <p className="text-lg font-semibold">
-                Talle:{" "}
-                <span className="font-normal">{size.name}</span>
+                Talle: <span className="font-normal">{size.name}</span>
               </p>
               <p className="text-md font-semibold">${item.price}</p>
             </div>

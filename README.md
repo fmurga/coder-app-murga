@@ -2,78 +2,76 @@
 
 ![Alt Text](https://github.com/fmurga/coder-app-murga/blob/main/public/assets/images/trending-Facundo-Murga.gif?raw=true)
 
-Para ver una version en vivo ingresar a 
-https://ecommerce-trending.netlify.app/ 
+# Demo de la Tienda
+### [`https://ecommerce-trending.netlify.app/`](https://ecommerce-trending.netlify.app/)
 
 
+# Librerias Instaladas y Tecnologias
 
-# Getting Started with Create React App
+* [`React`](https://es.reactjs.org/)
+* [`Firebase`](https://firebase.google.com/)
+* [`Tailwindcss`](https://tailwindcss.com/)
+* [`Netlify`]()
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## `headlessui/react`
+La libreria provee de componenetes basicos sin estilar que se pueden los cuales se pueden combinar de manera muy comoda con tailwind.css.
 
-In the project directory, you can run:
+## `tailwind.css`
+Para el estilado de la página se opto por dicha libreria para agilizar el mismo.
 
-### `npm start`
+## `firebase`
+Se utilizo firebase como base de datos para obtener los productos y guardar las ordenes creadas por los usuarios. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Otras: `react-select` utilizado para componentes del tipo select
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Ejecucion de la Aplicación
 
-### `npm test`
+Para ejecutar el proyecto, el mismo puede descargarse como .zip o clonarlo con:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```git
+git clone https://github.com/fmurga/coder-app-murga.git
+cd coder-app-murga
+```
 
-### `npm run build`
+Instalar las dependencias:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```git
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Para poder ejecutar el proyecto se debera cambiar el .env.example por .env y en el mismo incluir las credenciales que se obtienen al crear un proyecto de firebase.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```.env
+FIREBASE_API_KEY: 
+FIREBASE_AUTH_DOMAIN: 
+FIREBASE_PROJECT_ID: 
+FIREBASE_STORAGE_BUCKET: 
+FIREBASE_MESSAGING_SENDER_ID: 
+FIREBASE_APP_ID: 
+```
 
-### `npm run eject`
+En firebase se debera incluir dentro de firestore una colección product y una colección links
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Ejemplo de product
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```json
+category: "mujer",
+description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+id: "AOTVzNKAhGmUuamGOxhC",
+initial: 1,
+pictureUrl: "https://http2.mlstatic.com/D_NQ_NP_817298-MLA31993540345_082019-O.webp",
+price: 1500,
+sizeSelected: [],
+sizes: [{inStock: false, name: "XXS", stock: 120}],
+title: "Saco Beige",
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Ejemplo de links
+```json
+name: "Categorias",
+path: "category",
+subcategories: [{id: 1, name: "Mujer", path: "mujer"}]
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

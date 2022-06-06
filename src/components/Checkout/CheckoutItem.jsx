@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Select from "react-select";
 
 const CheckoutItem = ({ item }) => {
@@ -15,9 +16,11 @@ const CheckoutItem = ({ item }) => {
                 width={100}
               />
               <div>
-                <h2 className="text-purple-600 font-bold text-md">
-                  {item.title}
-                </h2>
+                <NavLink to={`/item/${item.id}`}>
+                  <h2 className="text-purple-600 font-bold text-md">
+                    {item.title}
+                  </h2>
+                </NavLink>
                 <p className="text-lg font-semibold">
                   Talle: <span className="font-normal">{size.name}</span>
                 </p>

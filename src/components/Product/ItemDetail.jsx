@@ -16,14 +16,25 @@ const ItemDetail = ({ item }) => {
 
   const [openModal, setOpenModal] = useState(false);
   const [count, setCount] = useState(0);
-
+  const [size, setSize] = useState({});
 
   const { addItem } = useContext(CartContext);
 
   const modalTitle = "Productos Agregados";
   const modalMessage = `Se han agregado: ${count} ${item.title} al carrito de compras`;
 
-  const itemInit = getItemById(item.id, cartItems);
+  useEffect(() => {
+    const itemInit = getItemById(item.id, cartItems);
+    if (itemInit !== undefined) {
+      const size = itemInit.sizeSelected.find(
+        (element) => element.name === sharedSize.name
+      );
+      setSize(size);
+    }
+    return () => {
+      setSize({});
+    };
+  }, [cartItems, item.id, sharedSize]);
 
   const onAdd = (count) => {
     setCount(count);
@@ -34,7 +45,6 @@ const ItemDetail = ({ item }) => {
   const endBuy = () => {
     return navigate("/cart");
   };
-
 
   return (
     <>
@@ -64,7 +74,7 @@ const ItemDetail = ({ item }) => {
             {item && sharedSize.stock >= 0 && (
               <>
                 <ItemCount
-                  initial={((itemInit && itemInit.sizeSelected === sharedSize.name) && itemInit.quantity) || 0}
+                  initial={(size && size.peritem) || 0}
                   stock={sharedSize.stock}
                   onAdd={onAdd}
                 />
