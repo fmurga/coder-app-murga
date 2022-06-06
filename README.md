@@ -43,12 +43,12 @@ npm install
 Para poder ejecutar el proyecto se debera cambiar el .env.example por .env y en el mismo incluir las credenciales que se obtienen al crear un proyecto de firebase.
 
 ```.env
-FIREBASE_API_KEY: 
-FIREBASE_AUTH_DOMAIN: 
-FIREBASE_PROJECT_ID: 
-FIREBASE_STORAGE_BUCKET: 
-FIREBASE_MESSAGING_SENDER_ID: 
-FIREBASE_APP_ID: 
+REACT_APP_FIREBASE_API_KEY=
+REACT_APP_FIREBASE_AUTH_DOMAIN=
+REACT_APP_FIREBASE_PROJECT_ID=
+REACT_APP_FIREBASE_STORAGE_BUCKET=
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=
+REACT_APP_FIREBASE_APP_ID=
 ```
 
 En firebase se debera incluir dentro de firestore una colección product y una colección links
