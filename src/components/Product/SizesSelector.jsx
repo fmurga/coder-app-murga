@@ -7,27 +7,30 @@ const classNames = (...classes) => {
 };
 
 const SizesSelector = ({ sizes }) => {
-  const [selectedSize, setSelectedSize] = useState(sizes[2]);
-  const {setSharedSelectedSize} = useContext(SizesContext)
+  const [selectedSize, setSelectedSize] = useState({});
+  const { setSharedSelectedSize } = useContext(SizesContext);
 
   useEffect(() => {
-    setSharedSelectedSize(selectedSize)
-  }, [selectedSize])
-  
+    setSharedSelectedSize(selectedSize);
+  }, [selectedSize]);
+
+  useEffect(() => {
+    let initialSize = sizes.find((size) => size.stock > 0 && size.inStock === true);
+    setSelectedSize(initialSize);
+  }, []);
 
   return (
     <form className="mt-10">
-      {/* Sizes */}
       <div className="mt-10">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm text-gray-900 font-medium">Size</h3>
+          <h3 className="text-sm text-gray-900 font-medium">Talles</h3>
         </div>
 
         <RadioGroup
           value={selectedSize}
           onChange={setSelectedSize}
           className="mt-4">
-          <RadioGroup.Label className="sr-only">Choose a size</RadioGroup.Label>
+          <RadioGroup.Label className="sr-only">Elija un talle</RadioGroup.Label>
           <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
             {sizes &&
               sizes.map((size) => (
@@ -35,12 +38,13 @@ const SizesSelector = ({ sizes }) => {
                   key={size.name}
                   value={size}
                   disabled={!size.inStock}
-                  className={({ active }) =>
+                  className={({ active, checked }) =>
                     classNames(
                       size.inStock
                         ? "bg-white shadow-sm text-gray-900 cursor-pointer"
                         : "bg-gray-50 text-gray-200 cursor-not-allowed",
                       active ? "ring-2 ring-indigo-500" : "",
+                      checked ? "ring-1 ring-indigo-500" : "",
                       "group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6"
                     )
                   }>

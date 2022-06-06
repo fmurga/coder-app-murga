@@ -26,7 +26,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   
 
   useEffect(() => {
-    if (count === 1) {
+    if (count === 0) {
       setDisableDec(true);
       setDisableAdd(false);
     }
@@ -34,7 +34,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       setDisableDec(false);
       setDisableAdd(true);
     }
-    if (count > 1) {
+    if (count > 0) {
       setDisableDec(false);
     }
     if (count < stock){
@@ -59,7 +59,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       <button
         className="w-full lg:w-3/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg disabled:bg-purple-400"
         onClick={() => onAdd(count)}
-        disabled={(stock === 0)}
+        disabled={(stock === 0 || count === 0)}
         >
           <ShoppingCart /> Agregar
       </button>

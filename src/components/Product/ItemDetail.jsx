@@ -1,5 +1,5 @@
 import { ShoppingBag } from "@mui/icons-material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { SizesContext } from "../../contexts/SizesProvider";
@@ -17,10 +17,11 @@ const ItemDetail = ({ item }) => {
   const [openModal, setOpenModal] = useState(false);
   const [count, setCount] = useState(0);
 
+
   const { addItem } = useContext(CartContext);
 
-  const modalMessage = `Se han agregado: ${count} ${item.title} al carrito de compras`;
   const modalTitle = "Productos Agregados";
+  const modalMessage = `Se han agregado: ${count} ${item.title} al carrito de compras`;
 
   const itemInit = getItemById(item.id, cartItems);
 
@@ -33,6 +34,8 @@ const ItemDetail = ({ item }) => {
   const endBuy = () => {
     return navigate("/cart");
   };
+
+
   return (
     <>
       <div className="container">
@@ -61,14 +64,14 @@ const ItemDetail = ({ item }) => {
             {item && sharedSize.stock >= 0 && (
               <>
                 <ItemCount
-                  initial={(itemInit && itemInit.quantity) || 0}
+                  initial={((itemInit && itemInit.sizeSelected === sharedSize.name) && itemInit.quantity) || 0}
                   stock={sharedSize.stock}
                   onAdd={onAdd}
                 />
                 {count > 0 && (
-                  <ButtonContainer onClick={() => endBuy()} >
+                  <ButtonContainer onClick={() => endBuy()}>
                     <ShoppingBag />
-                    Finalizar Compra 
+                    Finalizar Compra
                   </ButtonContainer>
                 )}
               </>

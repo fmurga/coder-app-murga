@@ -25,41 +25,48 @@ const CartItem = ({ item }) => {
   }, []);
 
   return (
-    <div className="flex justify-between w-5/6 h-40 border-y-slate-400 shadow-md rounded-lg hover:scale-105 transition duration-100 p-2">
-      <div className="inline-flex gap-2">
-        <img
-          className="rounded-lg"
-          src={item.pictureUrl}
-          alt={item.title}
-          width={100}
-        />
-        <div>
-          <h2 className="text-purple-600 font-bold text-md">{item.title}</h2>
-          <p className="text-lg font-semibold">
-            Talle: <span className="font-normal">{item.sizeSelected}</span>
-          </p>
-          <p className="text-md font-semibold">${item.price}</p>
+    <>
+      {item.sizeSelected.map((size) => (
+        <div className="flex justify-between w-5/6 h-40 border-y-slate-400 shadow-md rounded-lg hover:scale-105 transition duration-100 p-2">
+          <div className="inline-flex gap-2">
+            <img
+              className="rounded-lg"
+              src={item.pictureUrl}
+              alt={item.title}
+              width={100}
+            />
+            <div>
+              <h2 className="text-purple-600 font-bold text-md">
+                {item.title}
+              </h2>
+              <p className="text-lg font-semibold">
+                Talle:{" "}
+                <span className="font-normal">{size.name}</span>
+              </p>
+              <p className="text-md font-semibold">${item.price}</p>
+            </div>
+          </div>
+          <div>
+            <Select
+              onChange={handleSelectChange}
+              options={selectOptions}
+              getOptionValue={(option) => option.value}
+              getOptionLabel={(option) => option.label}
+              value={selectedValue}
+              placeholder={size.peritem}
+            />
+          </div>
+          <div>
+            <button
+              onClick={() => removeItem(item.id, size.name)}
+              type="button"
+              className="bg-white rounded-full p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+              <CloseIcon />
+            </button>
+          </div>
         </div>
-      </div>
-      <div>
-        <Select
-          onChange={handleSelectChange}
-          options={selectOptions}
-          getOptionValue={(option) => option.value}
-          getOptionLabel={(option) => option.label}
-          value={selectedValue}
-          placeholder={item.quantity}
-        />
-      </div>
-      <div>
-        <button
-          onClick={() => removeItem(item.id)}
-          type="button"
-          className="bg-white rounded-full p-1 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-          <CloseIcon />
-        </button>
-      </div>
-    </div>
+      ))}
+    </>
   );
 };
 

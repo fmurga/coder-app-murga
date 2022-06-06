@@ -13,7 +13,7 @@ const CartContainer = () => {
   }
 
   return (
-    <section className="container mx-auto h-full py-10">
+    <section className="container mx-auto py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Carrito de Compras</h1>
         <ClearCart />

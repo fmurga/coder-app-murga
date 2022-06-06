@@ -65,6 +65,7 @@ const CheckoutForm = () => {
           "No se ha podido procesar la compra, intente nuevamente mas tarde"
         );
       } else {
+        console.log("hay Stock :>> ");
         updateStock();
         const ordersColl = collection(db, "orders");
         addDoc(ordersColl, order).then(({ id }) => {
@@ -83,14 +84,17 @@ const CheckoutForm = () => {
       const promise = getDoc(productRef)
         .then((snapshot) => {
           if (snapshot.exists()) {
-            const aux = snapshot
+            prod.sizeSelected.forEach(element => {
+              const aux = snapshot
               .data()
-              .sizes.filter((size) => size.name === prod.sizeSelected);
-            if (aux[0].stock < prod.quantity) {
+              .sizes.filter((size) => size.name === element.name);
+              console.log('aux', aux)
+            if (aux[0].stock < element.peritem) {
               return false;
             } else {
               return true;
             }
+            });
           }
         })
         .catch((err) => console.log("error :>>", err));
@@ -100,16 +104,18 @@ const CheckoutForm = () => {
   };
 
   const updateStock = () => {
-    cartItems.forEach((element) => {
-      const aux = element.sizes.filter(
-        (size) => size.name === element.sizeSelected
-      );
-      aux[0].stock = aux[0].stock - element.quantity;
-      if (aux[0].stock === 0) {
-        aux[0].inStock = false;
-      }
-      const itemRef = doc(db, "products", element.id);
-      updateDoc(itemRef, element);
+    cartItems.forEach((prod) => {
+      prod.sizeSelected.forEach(element => {
+        const aux = prod.sizes.filter(
+          (size) => size.name === element.name
+        );
+        aux[0].stock = aux[0].stock - element.peritem;
+        if (aux[0].stock === 0) {
+          aux[0].inStock = false;
+        }
+      });
+      const itemRef = doc(db, "products", prod.id);
+      updateDoc(itemRef, prod);
     });
   };
 

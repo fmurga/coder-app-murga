@@ -7,7 +7,7 @@ import CheckoutItemList from "./CheckoutItemList";
 const CheckoutContainer = () => {
   const { cartItems } = useContext(CartContext);
   return (
-    <section className="container mx-auto h-full py-10">
+    <section className="container mx-auto py-10">
       {cartItems.length > 0 ? (
         <>
           <div className="flex items-center justify-center">
