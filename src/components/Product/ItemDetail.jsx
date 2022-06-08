@@ -1,10 +1,10 @@
-import { ShoppingBag } from "@mui/icons-material";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { SizesContext } from "../../contexts/SizesProvider";
 import { getItemById } from "../../helpers/getItemById";
 import { ButtonContainer } from "../buttons/ButtonContainer";
+import ShoppingCart from "../icons/ShoppingCart";
 import ModalAccept from "../Modals/ModalAccept";
 import ItemCount from "./ItemCount";
 import SizesSelector from "./SizesSelector";
@@ -80,7 +80,7 @@ const ItemDetail = ({ item }) => {
                 />
                 {count > 0 && (
                   <ButtonContainer onClick={() => endBuy()}>
-                    <ShoppingBag />
+                    <ShoppingCart />
                     Finalizar Compra
                   </ButtonContainer>
                 )}

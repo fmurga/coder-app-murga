@@ -1,7 +1,8 @@
-import { CheckOutlined } from "@mui/icons-material";
+
 import React from "react";
 import { NavLink } from "react-router-dom";
 import PaymentDetail from "../extra/PaymentDetail";
+import CheckOutlined from "../icons/CheckOutlined";
 
 const CartPaymentDetail = () => {
 

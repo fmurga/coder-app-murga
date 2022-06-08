@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import { ButtonContainer } from "../buttons/ButtonContainer";
-import { ShoppingCart } from "@mui/icons-material";
+import ShoppingCart from "../icons/ShoppingCart";
+import Add from "../icons/Add";
+import Remove from "../icons/Remove";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
   const [count, setCount] = useState(0);
@@ -47,17 +47,17 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       <span className="text-xs text-gray-600">Stock: {stock}</span>
       <div className="flex flex-row gap-2 justify-between my-3">
         <ButtonContainer onClick={decrement} disable={disableDec}>
-          <RemoveIcon />
+          <Remove />
         </ButtonContainer>
         <label className="text-center pt-2 w-44 bg-slate-200 rounded-lg">
           {count} 
         </label>
         <ButtonContainer onClick={add} disable={disableAdd}>
-          <AddIcon />
+          <Add />
         </ButtonContainer>
       </div>
       <button
-        className="w-full lg:w-3/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg disabled:bg-purple-400"
+        className="inline-flex justify-evenly w-full lg:w-2/12 p-2 bg-purple-600 hover:bg-purple-400 text-white font-bold rounded-lg disabled:bg-purple-400"
         onClick={() => onAdd(count)}
         disabled={(stock === 0 || count === 0)}
         >

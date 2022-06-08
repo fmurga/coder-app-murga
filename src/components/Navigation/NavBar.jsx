@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import icon from "../../assets/images/trending-icon.png";
-import { Menu } from "@mui/icons-material";
 import LoginWidget from "../extra/LoginWidget";
 import CartWidget from "../extra/CartWidget";
 import NavItem from "./NavItem";
@@ -8,6 +7,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../../contexts/CartContextProvider";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
+import Menu from "../icons/Menu";
 
 const NavBar = () => {
   const [openNav, setOpenNav] = useState(false);

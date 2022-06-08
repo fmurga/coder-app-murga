@@ -9,16 +9,22 @@ const CartContextProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
   const [impuestos, setImpuestos] = useState(0);
   const [isInitiallyFetched, setIsInitiallyFetched] = useState(false);
-  
+
   const itemsRef = useRef(cartItems);
 
   const addItem = (item, quantity, selectedSize) => {
     if (isInCart(item.id)) {
       const aux = cartItems.find((prod) => prod.id === item.id);
       const newCartItems = cartItems.filter((prod) => prod.id !== item.id);
-      aux.quantity = aux.quantity + quantity;
-      const auxSize = { name: selectedSize, peritem: quantity };
-      aux.sizeSelected.push(auxSize);
+      const isSize = aux.sizeSelected.filter(
+        (size) => size.name === selectedSize
+      );
+      if (isSize.length === 0) {
+        const auxSize = { name: selectedSize, peritem: quantity };
+        aux.sizeSelected.push(auxSize);
+      } else {
+        isSize.peritem = isSize.peritem + quantity;
+      }
       setCartItems([...newCartItems, aux]);
     } else {
       item.quantity = quantity;
@@ -53,10 +59,9 @@ const CartContextProvider = ({ children }) => {
   };
 
   const totalInCart = () => {
-
     return cartItems.reduce((acc, prod) => {
       let aux = 0;
-      prod.sizeSelected.forEach(element => {
+      prod.sizeSelected.forEach((element) => {
         aux = aux + element.peritem;
       });
       return (acc = acc + aux);
@@ -97,15 +102,13 @@ const CartContextProvider = ({ children }) => {
     setTotal(impuestos + subtotal);
   };
 
-
   const addLocalItems = (item) => {
-    if(Array.isArray(item)){
-      setCartItems([...itemsRef.current, ...item])
-    }
-    else{
+    if (Array.isArray(item)) {
+      setCartItems([...itemsRef.current, ...item]);
+    } else {
       setCartItems([...itemsRef.current, item]);
     }
-  }
+  };
 
   useEffect(() => {
     setItemCount(totalInCart());
@@ -122,18 +125,17 @@ const CartContextProvider = ({ children }) => {
     calcTotal();
   }, [cartItems, subtotal, impuestos]);
 
-  useEffect(()=>{
-    let prev_items = JSON.parse(localStorage.getItem('cart')) || [];
-    addLocalItems(prev_items)
-    setIsInitiallyFetched(true)
-  },[])
+  useEffect(() => {
+    let prev_items = JSON.parse(localStorage.getItem("cart")) || [];
+    addLocalItems(prev_items);
+    setIsInitiallyFetched(true);
+  }, []);
 
-
-useEffect(() => {
-  if(isInitiallyFetched){
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }
-}, [cartItems]);
+  useEffect(() => {
+    if (isInitiallyFetched) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
 
   return (
     <CartContext.Provider
@@ -147,7 +149,7 @@ useEffect(() => {
         total,
         subtotal,
         impuestos,
-        addLocalItems
+        addLocalItems,
       }}>
       {children}
     </CartContext.Provider>

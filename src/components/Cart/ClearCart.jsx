@@ -1,7 +1,8 @@
-import { Delete } from '@mui/icons-material'
+
 import React, { useContext } from 'react'
 import { CartContext } from '../../contexts/CartContextProvider'
 import { ButtonContainer } from '../buttons/ButtonContainer'
+import Delete from '../icons/Delete';
 
 const ClearCart = () => {
     const {clear} = useContext(CartContext);
