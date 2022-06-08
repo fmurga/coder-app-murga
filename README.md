@@ -11,14 +11,14 @@
 * [`React`](https://es.reactjs.org/)
 * [`Firebase`](https://firebase.google.com/)
 * [`Tailwindcss`](https://tailwindcss.com/)
-* [`Netlify`]()
+* [`Netlify`](https://www.netlify.com/)
 
 
 ## `headlessui/react`
 La libreria provee de componenetes basicos sin estilar que se pueden los cuales se pueden combinar de manera muy comoda con tailwind.css.
 
 ## `tailwind.css`
-Para el estilado de la página se opto por dicha libreria para agilizar el mismo.
+Para el estilado de la página se opto por dicha libreria para agilizar el desarrollo ya que manejaba la tecnologia.
 
 ## `firebase`
 Se utilizo firebase como base de datos para obtener los productos y guardar las ordenes creadas por los usuarios. 
@@ -74,4 +74,8 @@ path: "category",
 subcategories: [{id: 1, name: "Mujer", path: "mujer"}]
 ```
 
+# Control de stock
+Antes de crear la orden de compra en firebase se controla que haya stock del producto, de no haberlo la misma no se ejecuta. A su vez se va reduciendo el stock una vez que se haya procesado la compra la cual se ve regflejada en los componentes de los items.
 
+# Carrito en LocalStorage
+Se utilizo el local storage para darle persistencia al carrito del usuario si el mismo actualiza o cierra la aplicacion. Una vez que se vuelve a entrar el carrito aparece tal como se dejo en ese momento.
